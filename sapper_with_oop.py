@@ -1,6 +1,17 @@
 import tkinter as tk
 
 
+class MyButton(tk.Button):
+
+    def __init__(self, master, x, y, *args, **kwargs):
+        super(MyButton, self).__init__(master, *args, **kwargs)
+        self.x = x
+        self.y = y
+        self.is_mine = False
+
+    def __repr__(self):
+        return f'MyButton {self.x} {self.y}'
+
 class MineSweeper:
     # создание стартого окна
     window = tk.Tk()
@@ -20,7 +31,7 @@ class MineSweeper:
         for i in range(MineSweeper.ROW):
             temp = []
             for j in range(MineSweeper.COLUMNS):
-                btn = tk.Button(MineSweeper.window, width=3, font='Calibri 15 bold')
+                btn = MyButton(MineSweeper.window, x=i, y=j, width=3, font='Calibri 15 bold')
                 temp.append(btn)
             self.buttons.append(temp)
 
