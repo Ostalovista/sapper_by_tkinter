@@ -12,6 +12,7 @@ class MyButton(tk.Button):
     def __repr__(self):
         return f'MyButton {self.x} {self.y}'
 
+
 class MineSweeper:
     # создание стартого окна
     window = tk.Tk()
