@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox as msg
+from functools import partial
 
 from random import shuffle
 # shuffle позволяет перемешивать какую-то коллекцию (лист)
@@ -91,48 +92,31 @@ for i in range(1, ROW+1):
 #     print()
 
 
+
 # создание двумерного списка с кнопками
 for i in range(ROW):
     temp = []
     for j in range(COLUMN):
-        current_i = i
-        current_j = j
-        btn = tk.Button(window, width = 3, font='Calibri 15 bold')
+        btn = tk.Button(window, width=3, font='Calibri 15 bold')
         temp.append(btn)
     buttons.append(temp)
 
-def click_button(clicked_button):
-    print(clicked_button)
-    clicked_button.config(state='disabled')
-    # print(repr(clicked_button))
 
-    # -------------------------------   вариант 1 ---------------------------#
-    current_click_position_check = 1
-    #click_position надо считать, это чисто примерн
-    click_position = 13
-    for i in range(1, ROW + 1):
-        for j in range(1, COLUMN+1):
-            if (click_position == current_click_position_check):
-                if game_place[i][j] == '*':
-                    clicked_button.config(text='*')
-                    msg.showinfo(title="End Game", message="It was a bomb!")
-                    window.destroy()
-                else:
-                    button_text = game_place[i][j]
-                    print(button_text)
-                    clicked_button.config(text=button_text)
-            else:
-                current_click_position_check = current_click_position_check + 1
+def click_button(curr_i, curr_j):
+    print(game_place[curr_i + 1][curr_j + 1])
+    if(game_place[curr_i + 1][curr_j + 1] == '*'):
+        # btn[curr_i + 1, curr_j + 1].config(text='*')
+        msg.showinfo('GAME OVER!', 'It was a bomb!')
+    else:
+        print(game_place[curr_i + 1][curr_j + 1])
 
 
 
-
-# вывод кнопок на экран
 for i in range(ROW):
     for j in range(COLUMN):
         btn = buttons[i][j]
         btn.grid(row=i, column=j)
-        # btn = tk.Button(window, text='c', command=lambda j=c: click_button(j))
-        btn.config(command=lambda button=btn: click_button(button))
+        btn.config(command=partial(click_button, i, j))
+        # btn.config(command=lambda button=btn: click_button(button))
 
 window.mainloop()
