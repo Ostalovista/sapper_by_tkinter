@@ -101,17 +101,14 @@ for i in range(ROW):
     buttons.append(temp)
 
 
-# def restart_table(position, curr_symbol):
-
-
-
 def click_button(curr_i, curr_j):
     print(curr_i + 1, curr_j + 1)
     curr_symbol = game_place[curr_i + 1][curr_j + 1]
-    position = (curr_i + 1) * ROW + (curr_j + 1)
-    print("position =", position)
+    position = (curr_i) * ROW + (curr_j+1)
+    print('curr_symbol =', curr_symbol)
     if(curr_symbol == '*'):
-        btn[position].config(text=curr_symbol)
+        print(type(btn))
+        btn[curr_i][curr_j].config(text='/')
         msg.showinfo('GAME OVER!', 'It was a bomb!')
     else:
         print(curr_symbol)
@@ -122,9 +119,5 @@ for i in range(ROW):
     for j in range(COLUMN):
         btn = buttons[i][j]
         btn.grid(row=i, column=j)
-        # position = i + j
         btn.config(command=partial(click_button, i, j))
-        # btn[position].config(text=curr_symbol)
-        # btn.config(command=lambda button=btn: click_button(button))
-        # print(res_position, res_symbol)
 window.mainloop()
