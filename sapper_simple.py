@@ -93,8 +93,7 @@ current_i = 0
 current_j = 0
 
 def click_button(clicked_button):
-    print(clicked_button)
-
+    clicked_button.config(text='*')
 
 
 # создание двумерного списка с кнопками
