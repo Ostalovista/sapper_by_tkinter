@@ -6,7 +6,6 @@ from random import shuffle
 # shuffle позволяет перемешивать какую-то коллекцию (лист)
 
 
-
 # create window with game
 window = tk.Tk()
 window.title('Saper by tkinter')
@@ -16,7 +15,7 @@ ROW = 7
 COLUMN = 7
 buttons = []
 count_mines = 10
-MINES = 3
+curr_symbol = ''
 
 # получим расположение мин
 def get_mines_places():
@@ -102,13 +101,20 @@ for i in range(ROW):
     buttons.append(temp)
 
 
+# def restart_table(position, curr_symbol):
+
+
+
 def click_button(curr_i, curr_j):
-    print(game_place[curr_i + 1][curr_j + 1])
-    if(game_place[curr_i + 1][curr_j + 1] == '*'):
-        # btn[curr_i + 1, curr_j + 1].config(text='*')
+    print(curr_i + 1, curr_j + 1)
+    curr_symbol = game_place[curr_i + 1][curr_j + 1]
+    position = (curr_i + 1) * ROW + (curr_j + 1)
+    print("position =", position)
+    if(curr_symbol == '*'):
+        btn[position].config(text=curr_symbol)
         msg.showinfo('GAME OVER!', 'It was a bomb!')
     else:
-        print(game_place[curr_i + 1][curr_j + 1])
+        print(curr_symbol)
 
 
 
@@ -116,7 +122,9 @@ for i in range(ROW):
     for j in range(COLUMN):
         btn = buttons[i][j]
         btn.grid(row=i, column=j)
+        # position = i + j
         btn.config(command=partial(click_button, i, j))
+        # btn[position].config(text=curr_symbol)
         # btn.config(command=lambda button=btn: click_button(button))
-
+        # print(res_position, res_symbol)
 window.mainloop()
